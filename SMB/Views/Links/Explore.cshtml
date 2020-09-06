@@ -4,11 +4,21 @@
     ViewBag.Title = "Ссылки";
 }
 
+@Scripts.Render("~/Javascript/1.js")
+@Styles.Render("~/Content/Link.css")
 <h2>Темы и ссылки</h2>
 <div class="linkContainer">
     @foreach (var topic in Model)
     {
+    <div class="linkListContainer" onclick="openOrCloseList(this)">
         <a>@topic.Name</a>
+        <ul class="linkList">
+            @foreach (var link in topic.Links)
+            {
+                <li><a target="_blank" href="@link.Content">@link.Name</a></li>
+            }
+        </ul>
+    </div>
     }
 </div>
 

@@ -14,7 +14,9 @@ namespace SMB.Models.Links
         protected override void Seed(LinkContext context)
         {
             var algebra = new Subject() { Name = "Алгебра" };
-            algebra.Topics.Add(new Topic() { Name = "Тригонометрия" });
+            var trigonometry = new Topic() { Name = "Тригонометрия" };
+            trigonometry.Links.Add(new Link() { Name = "Формулы приведения и как их запомнить", Content = "https://matemonline.com/dh/тригонометрия/formuly-privedenija/" });
+            algebra.Topics.Add(trigonometry);
             var physics = new Subject() { Name = "Физика" };
             context.Subjects.Add(algebra);
             context.Subjects.Add(physics);

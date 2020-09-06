@@ -5,9 +5,11 @@
 
 <h2>Предметы</h2>
 <div class="linkContainer">
-        @foreach(var subject in Model)
+    <ul>
+        @foreach (var subject in Model)
         {
-            <a href="~/Links/Explore/@subject.Id">@subject.Name</a>
+            <li><a href="~/Links/Explore/@subject.Id">@subject.Name</a></li>
         }
+    </ul>
 </div>
 
