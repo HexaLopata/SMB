@@ -1,0 +1,46 @@
+﻿@*
+navbar - навигационная панель                     
+navBarLogo - логотип в навигационной панели       
+navBarInner - пункты навигационной панели         
+container - основная область для контента         
+navBarInnerItem - пункт в навигационной панели    
+navBarInnerItemLink - ссылка в пункте навигационной панели
+*@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - SMB</title>
+        @Styles.Render("~/Content/MasterPageStyle.css")
+    </head>
+    <body>
+        <div class="navBar">
+            <div class="navBarLogo">
+                <a href="~/Home/Index" id="navBarLogoItem">SMB</a>
+            </div>
+            <div class="navBarInner">
+                <div class="navBarInnerItem">
+                    <a href="~/Links/Index" class="navBarInnerItemLink">Ссылки</a>
+                </div>
+                <div class="navBarInnerItem">
+                    <a href="~/Dictionary/Index" class="navBarInnerItemLink">Словарь</a>
+                </div>
+                <div class="navBarInnerItem">
+                    <a href="~/EGE/Index" class="navBarInnerItemLink">ЕГЭ</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            @RenderBody()
+        </div>
+        <footer>
+            <p>&copy; @DateTime.Now.Year - принадлежит Лехе</p>
+        </footer>
+    
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

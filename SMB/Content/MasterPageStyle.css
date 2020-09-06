@@ -1,0 +1,55 @@
+﻿body {
+    margin: 0 auto;
+}
+
+footer {
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    overflow: hidden;
+    max-width: 1400px;
+    margin: auto;
+    padding-top: 56px;
+}
+
+.navBar {
+    margin-top: 0;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    background-color: #202020;
+    height: 56px;
+}
+
+.navBarLogo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 50%;
+    color: white;
+}
+
+.navBarInner {
+    padding-right: 10px;
+    flex-direction: row-reverse;
+    display: flex;
+    width: 50%;
+}
+
+.navBarInnerItem {
+    padding: 19.5px 10px 19.5px 10px;
+}
+
+.navBarInnerItemLink {
+    text-decoration: none;
+    color: white;
+}
+
+#navBarLogoItem {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: xx-large;
+    text-decoration: none;
+    color: white;
+}
