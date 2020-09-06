@@ -1,0 +1,14 @@
+﻿@model IEnumerable<SMB.Models.Links.Topic>
+
+@{
+    ViewBag.Title = "Ссылки";
+}
+
+<h2>Темы и ссылки</h2>
+<div class="linkContainer">
+    @foreach (var topic in Model)
+    {
+        <a>@topic.Name</a>
+    }
+</div>
+

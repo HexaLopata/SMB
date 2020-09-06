@@ -134,9 +134,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Link.cs" />
-    <Compile Include="Models\Subject.cs" />
-    <Compile Include="Models\Topic.cs" />
+    <Compile Include="Models\Links\Link.cs" />
+    <Compile Include="Models\Links\LinkContext.cs" />
+    <Compile Include="Models\Links\Subject.cs" />
+    <Compile Include="Models\Links\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +147,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <None Include="Scripts\Jquery\jquery-3.4.1.intellisense.js" />
+    <Content Include="Javascript\1.js" />
     <Content Include="Scripts\Jquery\jquery-3.4.1.js" />
     <Content Include="Scripts\Jquery\jquery-3.4.1.min.js" />
     <Content Include="Scripts\Jquery\jquery-3.4.1.slim.js" />
@@ -170,6 +172,7 @@
     <Content Include="Views\Dictionary\Index.cshtml" />
     <Content Include="Views\Links\Index.cshtml" />
     <Content Include="Views\EGE\Index.cshtml" />
+    <Content Include="Views\Links\Explore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
