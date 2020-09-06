@@ -10,6 +10,6 @@
         public int? TopicId { get; set; }
 
         public Subject subject { get; set; }
-        public Topic topic { get; set; }
+        public Topic Topic { get; set; }
     }
 }
