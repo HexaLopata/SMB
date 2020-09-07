@@ -1,5 +1,6 @@
-﻿function openOrCloseList(element){
-    children = element.childNodes
+﻿function openOrCloseList(topicHeader) {
+    mainElement = topicHeader.parentNode
+    children = mainElement.childNodes
     for (let i = 0; i < children.length; i++) {
         if (children[i].className == "linkList") {
             if (children[i].style.display != "none") {

@@ -2,13 +2,14 @@
 @{
     ViewBag.Title = "Ссылки";
 }
-
+@Styles.Render("~/Content/LinkStyle.css")
 <h2>Предметы</h2>
 <div class="linkContainer">
     <ul>
         @foreach (var subject in Model)
         {
-            <li><a href="~/Links/Explore/@subject.Id">@subject.Name</a></li>
+            <li><a class="topicHeader" href="~/Links/Explore/@subject.Id">@subject.Name</a></li>
+            <br />
         }
     </ul>
 </div>

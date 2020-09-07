@@ -6,6 +6,7 @@ namespace SMB.Models.Links
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsOpen { get; set; } = false;
 
         public int? SubjectId { get; set; }
         public virtual Subject Subject { get; set; }

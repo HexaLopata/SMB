@@ -12,6 +12,7 @@ footer {
     max-width: 1400px;
     margin: auto;
     padding-top: 56px;
+    padding-left: 5px;
 }
 
 .navBar {
@@ -52,4 +53,12 @@ footer {
     font-size: xx-large;
     text-decoration: none;
     color: white;
+}
+
+h2{
+    font-size: 40px;
+}
+
+a {
+    font-size: 20px;
 }

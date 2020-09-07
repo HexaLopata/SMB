@@ -4,21 +4,47 @@
     ViewBag.Title = "Ссылки";
 }
 
-@Scripts.Render("~/Javascript/1.js")
-@Styles.Render("~/Content/Link.css")
+@Scripts.Render("~/Javascript/LinkList.js")
+@Styles.Render("~/Content/LinkStyle.css")
 <h2>Темы и ссылки</h2>
 <div class="linkContainer">
     @foreach (var topic in Model)
     {
-    <div class="linkListContainer" onclick="openOrCloseList(this)">
-        <a>@topic.Name</a>
-        <ul class="linkList">
-            @foreach (var link in topic.Links)
-            {
-                <li><a target="_blank" href="@link.Content">@link.Name</a></li>
-            }
-        </ul>
-    </div>
+        <br />
+        <div class="linkListContainer">
+            <a class="topicHeader" onclick="openOrCloseList(this)">@topic.Name</a>
+            <ul class="linkList" style="@(topic.IsOpen ? "" : "display: none")">
+                @foreach (var link in topic.Links)
+                {
+                    <li><a target="_blank" href="@link.Content">@link.Name</a></li>
+                    <br />
+                }
+                <form method="post" action="~/Links/AddLink/">
+                    <input type="hidden" value="@topic.Id" name="id" />
+                    <table>
+                        <tr>
+                            <td><p>Содержимое ссылки </p></td>
+                            <td><input type="text" name="linkName" /> </td>
+                        </tr>
+                        <tr>
+                            <td><p>Адрес </p></td>
+                            <td><input type="text" name="linkContent" /> </td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" value="Добавить ссылку" /> </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </form>
+            </ul>
+        </div>
+
     }
 </div>
+<br/>
+<form method="post" action="~/Links/AddTopic/@ViewBag.SubjectId">
+    <input type="text" name="topicName"/>
+    <input type="submit" />
+</form>
+
 
