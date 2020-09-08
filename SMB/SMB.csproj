@@ -142,13 +142,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\HomeStyle.css" />
-    <Content Include="Content\LinkStyle.css" />
-    <Content Include="Content\MainStyle.css" />
+    <Content Include="Content\LinksStyle.css" />
+    <Content Include="Content\GeneralStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <None Include="Scripts\Jquery\jquery-3.4.1.intellisense.js" />
-    <Content Include="Javascript\LinkList.js" />
+    <Content Include="Javascript\LinkListOpener.js" />
+    <Content Include="Javascript\Main.js" />
     <Content Include="Scripts\Jquery\jquery-3.4.1.js" />
     <Content Include="Scripts\Jquery\jquery-3.4.1.min.js" />
     <Content Include="Scripts\Jquery\jquery-3.4.1.slim.js" />

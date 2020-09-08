@@ -1,5 +1,5 @@
 ﻿function openOrCloseList(topicHeader) {
-    mainElement = topicHeader.parentNode
+    mainElement = topicHeader.closest(".linkListContainer")
     children = mainElement.childNodes
     for (let i = 0; i < children.length; i++) {
         if (children[i].className == "linkList") {

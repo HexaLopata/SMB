@@ -2,15 +2,28 @@
 @{
     ViewBag.Title = "Ссылки";
 }
-@Styles.Render("~/Content/LinkStyle.css")
+@Styles.Render("~/Content/LinksStyle.css")
 <h2>Предметы</h2>
 <div class="linkContainer">
-    <ul>
-        @foreach (var subject in Model)
-        {
-            <li><a class="topicHeader" href="~/Links/Explore/@subject.Id">@subject.Name</a></li>
-            <br />
-        }
-    </ul>
+     @foreach (var subject in Model)
+     {
+         <table>
+             <tr>
+                 <td>
+                     <a class="topicHeader" href="~/Links/Explore/@subject.Id">@subject.Name</a>
+                 </td>
+                 <td>
+                     <a class="topicHeader" onclick="confirmDelete('subjectId', @subject.Id, '/Links/DeleteSubject/')">Удалить</a>
+                 </td>
+             </tr>
+         </table>
+         <br />
+     }
+</div>
+<div>
+    <form method="post" action="~/Links/AddSubject/">
+        <input type="text" name="subjectName" />
+        <input type="submit" value="Добавить предмет" />
+    </form>
 </div>
 

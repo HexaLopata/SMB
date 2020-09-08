@@ -18,6 +18,8 @@ namespace SMB.Models.Links
             trigonometry.Links.Add(new Link() { Name = "Формулы приведения и как их запомнить", Content = "https://matemonline.com/dh/тригонометрия/formuly-privedenija/" });
             trigonometry.Links.Add(new Link() { Name = "Формулы суммы/разности тригонометрических функций", Content = "https://zaochnik.com/spravochnik/matematika/trigonometrija/summa-i-raznost-sinusov-i-kosinusov/" });
             trigonometry.Links.Add(new Link() { Name = "Все основные формулы в удобном формате", Content = "https://mnogoformul.ru/vse-formuly-po-trigonometrii" });
+            trigonometry.Links.Add(new Link() { Name = "Простейшие тригонометрические уравнения", Content = "https://www.resolventa.ru/spr/trig/equation.htm" });
+            trigonometry.Links.Add(new Link() { Name = "Обратные тригонометрические функции.", Content = "https://www.calc.ru/Obratnyye-Trigonometricheskiye-Funktsii-A.html" });
             algebra.Topics.Add(trigonometry);
             var physics = new Subject() { Name = "Физика" };
             context.Subjects.Add(algebra);
