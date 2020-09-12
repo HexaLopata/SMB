@@ -65,12 +65,57 @@ a {
 
 .modalWindow {
     position: fixed;
-    width: 250px;
+    background-color: #ededed;
+    vertical-align: middle;
+    min-width: 300px;
+    max-width: 1000px;
+    width: 50%;
     height: 250px;
-    left: 50%;
-    margin: -125px 0 0 -125px;
+    left: 25%;
+    margin: 12% 0 0 0;
 }
 
-/*top: 50%;
-left: 50%;
-margin: -125px 0 0 -125px;*/
+.modalWindowButtons {
+    height: 20%;
+    margin: 200px 0 0 0;
+}
+
+#deleteButton {
+    font-weight: 700;
+    color: white;
+    border: 1px solid black;
+    background-color: #ab3532;
+    float: right;
+    margin: -35px 20px 0px 0px;
+    width: 100px;
+    height: 35px;
+}
+
+#backButton {
+    font-weight: 700;
+    color: white;
+    background-color: #ab3532;
+    border: 1px solid black;
+    margin: -35px 0 -20px 20px;
+    width: 100px;
+    height: 35px;
+    float: left;
+}
+
+.modalWindowText {
+    font-weight: 300;
+    font-size: 25px;
+    padding: 30px 10px 10px 0;
+    height: 80%;
+    width: 100%;
+    text-align: center;
+    float: left;
+}
+
+@media (max-width: 500px) {
+    .modalWindow{
+        left: 0;
+        width: 100%;
+        margin: 12% 0 0 0;
+    }
+}

@@ -14,10 +14,13 @@ navBarInnerItemLink - ссылка в пункте навигационной п
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title - SMB</title>
-        @Styles.Render("~/Content/GeneralStyle.css")
-        @Scripts.Render("~/Javascript/Main.js")
+        @Styles.Render("~/Content/generalStyle.css")
+        @Scripts.Render("~/Javascript/main.js")
     </head>
     <body>
+        <div class="modalWindow" style="display:none">
+
+        </div>
         <div class="navBar">
             <div class="navBarLogo">
                 <a href="~/Home/Index" id="navBarLogoItem">SMB</a>
@@ -43,8 +46,5 @@ navBarInnerItemLink - ссылка в пункте навигационной п
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
-        <div class="modalWindow" style="display:none">
-
-        </div>
     </body>
 </html>
