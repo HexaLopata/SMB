@@ -8,7 +8,7 @@ namespace SMB.Models.Links
         public string Name { get; set; }
         public bool IsOpen { get; set; } = false;
 
-        public int? SubjectId { get; set; }
+        public int SubjectId { get; set; }
         public virtual Subject Subject { get; set; }
 
         public virtual ICollection<Link> Links { get; set; }

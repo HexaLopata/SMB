@@ -1,4 +1,5 @@
 ﻿using SMB.Models.Links;
+using System.Data.Entity;
 using System.Web.Mvc;
 
 namespace SMB.Controllers
@@ -6,6 +7,7 @@ namespace SMB.Controllers
     public class LinksController : Controller
     {
         private LinkContext linkDB = new LinkContext();
+        private readonly IDataBaseManager linkDataBaseManager = new LinkDataBaseManager();
 
         public ActionResult Index()
         {
@@ -30,105 +32,63 @@ namespace SMB.Controllers
         public RedirectResult AddTopic(int id, string topicName)
         {
             var subject = linkDB.Subjects.Find(id);
-            if (subject != null)
-            {
-                if (topicName.Trim() != string.Empty)
-                {
-                    subject.Topics.Add(new Topic() { SubjectId = id, Name = topicName });
-                    linkDB.SaveChanges();
-                }
-
-                return RedirectPermanent("~/Links/Explore/" + id);
-            }
-
-            return RedirectPermanent("~/Links/Index/");
+            return AddObjectToDataBaseAndRedirect(new Topic() { SubjectId = id, Name = topicName }, linkDB.Topics,
+                                                              topicName, subject);
         }
 
         [HttpPost]
         public RedirectResult AddLink(int id, string linkName, string linkContent)
         {
             var topic = linkDB.Topics.Find(id);
-            if (topic != null)
-            {
-                if (linkName.Trim() != string.Empty)
-                {
-                    topic.Links.Add(new Link() { TopicId = id, Name = linkName, Content = linkContent });
-                    linkDB.SaveChanges();
-                }
-                return RedirectPermanent("~/Links/Explore/" + topic.SubjectId);
-            }
 
-            return RedirectPermanent("~/Links/Index/");
+            return AddObjectToDataBaseAndRedirect(new Link() { TopicId = id, Name = linkName, Content = linkContent }, linkDB.Links,
+                                                             linkName, topic);
         }
 
         [HttpPost]
         public RedirectResult AddSubject(string subjectName)
         {
-            if (subjectName != null)
-            {
-                if (subjectName.Trim() != string.Empty)
-                {
-                    linkDB.Subjects.Add(new Subject() { Name = subjectName });
-                    linkDB.SaveChanges();
-                }
-            }
-
-            return RedirectPermanent("~/Links/Index/");
+            return AddObjectToDataBaseAndRedirect(new Subject() { Name = subjectName }, linkDB.Subjects, subjectName, subjectName);
         }
 
         [HttpPost]
         public RedirectResult DeleteLink(int linkId)
         {
-            var link = linkDB.Links.Find(linkId);
-            if (link != null)
-            {
-                var subjectId = link.Topic.SubjectId;
-                linkDB.Links.Remove(link);
-                linkDB.SaveChanges();
-
-                return RedirectPermanent("~/Links/Explore/" + subjectId);
-            }
-            else
-            {
-                return RedirectPermanent("~/Links/Index/");
-            }
+            return DeleteModelAndRedirect(linkId, linkDB.Links, linkDB);
         }
 
         [HttpPost]
         public RedirectResult DeleteTopic(int topicId)
         {
-            var topic = linkDB.Topics.Find(topicId);
-            if (topic != null)
-            {
-                var subjectId = topic.SubjectId;
-                linkDB.Links.RemoveRange(topic.Links);
-                linkDB.Topics.Remove(topic);
-                linkDB.SaveChanges();
-
-                return RedirectPermanent("~/Links/Explore/" + subjectId);
-            }
-            else
-            {
-                return RedirectPermanent("~/Links/Index/");
-            }
+            return DeleteModelAndRedirect(topicId, linkDB.Topics, linkDB);
         }
 
         [HttpPost]
         public RedirectResult DeleteSubject(int subjectId)
         {
-            var subject = linkDB.Subjects.Find(subjectId);
-            if (subject != null)
+            return DeleteModelAndRedirect(subjectId, linkDB.Subjects, linkDB);
+        }
+
+        private RedirectResult DeleteModelAndRedirect<T>(int id, DbSet<T> modelType, DbContext db) where T : class
+        {
+            var result = linkDataBaseManager.DeleteObjectById(id, modelType, db);
+            if (result)
+                return RedirectPermanent(HttpContext.Request.ServerVariables["HTTP_REFERER"]);
+            return RedirectPermanent("~/Links/Index/");
+        }
+
+        private RedirectResult AddObjectToDataBaseAndRedirect<T>(T obj, DbSet<T> modelSet, string nameForCheck, object objForCheckOnNull) where T : class
+        {
+            if (objForCheckOnNull != null)
             {
-                var topics = subject.Topics;
-                foreach(Topic topic in topics)
+                if (nameForCheck.Trim() != string.Empty)
                 {
-                    linkDB.Links.RemoveRange(topic.Links);
+                    linkDataBaseManager.AddObjectInDataBase(obj, modelSet, linkDB);
                 }
-                linkDB.Topics.RemoveRange(topics);
-                linkDB.Subjects.Remove(subject);
-                linkDB.SaveChanges();
+                return RedirectPermanent(HttpContext.Request.ServerVariables["HTTP_REFERER"]);
             }
-                return RedirectPermanent("~/Links/Index/");
+
+            return RedirectPermanent("~/Links/Index/");
         }
     }
 }

@@ -175,6 +175,8 @@
     <Compile Include="Models\Links\Subject.cs" />
     <Compile Include="Models\Links\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\Links\IDataBaseManager.cs" />
+    <Compile Include="Models\Links\LinkDataBaseManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\HomeStyle.css" />
