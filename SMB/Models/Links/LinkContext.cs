@@ -20,7 +20,10 @@ namespace SMB.Models.Links
             trigonometry.Links.Add(new Link() { Name = "Все основные формулы в удобном формате", Content = "https://mnogoformul.ru/vse-formuly-po-trigonometrii" });
             trigonometry.Links.Add(new Link() { Name = "Простейшие тригонометрические уравнения", Content = "https://www.resolventa.ru/spr/trig/equation.htm" });
             trigonometry.Links.Add(new Link() { Name = "Обратные тригонометрические функции.", Content = "https://www.calc.ru/Obratnyye-Trigonometricheskiye-Funktsii-A.html" });
+            var logorifms = new Topic() { Name = "Логорифмы" };
+            logorifms.Links.Add(new Link() { Name = "Основные формулы", Content = "https://zen.yandex.ru/media/studystudent/svoistva-logarifmov-shpargalka-s-formulami-5e99c14f7c1cd903b767fdab" });
             algebra.Topics.Add(trigonometry);
+            algebra.Topics.Add(logorifms);
             var physics = new Subject() { Name = "Физика" };
             context.Subjects.Add(algebra);
             context.Subjects.Add(physics);
