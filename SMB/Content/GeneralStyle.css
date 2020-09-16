@@ -1,4 +1,14 @@
-﻿body {
+﻿@font-face {
+    font-family: Oswald;
+    src: url('/fonts/Oswald-Medium.ttf');
+}
+
+*{
+    font-family: verdana, arial, helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
     margin: 0 auto;
 }
 
@@ -33,6 +43,8 @@ footer {
 }
 
 .navBarInner {
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-right: 10px;
     flex-direction: row-reverse;
     display: flex;
@@ -40,17 +52,19 @@ footer {
 }
 
 .navBarInnerItem {
-    padding: 19.5px 10px 19.5px 10px;
+    padding: 0 10px 0px 10px;
 }
 
 .navBarInnerItemLink {
+    font-size: x-large;
+    font-family: Oswald;
     text-decoration: none;
     color: white;
 }
 
 #navBarLogoItem {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: xx-large;
+    font-family: Oswald;
+    font-size: x-large;
     text-decoration: none;
     color: white;
 }
@@ -69,11 +83,11 @@ a {
     vertical-align: middle;
     min-width: 300px;
     max-width: 1000px;
-    width: 50%;
-    height: 250px;
-    left: 25%;
-    margin: 12% 0 0 0;
-}
+    width: 30%;
+    height: 25%;
+    top: 30%;
+    left: 35%;
+}25
 
 .modalWindowButtons {
     height: 20%;
@@ -85,10 +99,11 @@ a {
     color: white;
     border: 1px solid black;
     background-color: #ab3532;
-    float: right;
-    margin: -35px 20px 0px 0px;
     width: 100px;
     height: 35px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px; 
 }
 
 #backButton {
@@ -96,10 +111,11 @@ a {
     color: white;
     background-color: #ab3532;
     border: 1px solid black;
-    margin: -35px 0 -20px 20px;
     width: 100px;
     height: 35px;
-    float: left;
+    position: absolute;
+    left: 20px;
+    bottom: 20px; 
 }
 
 .modalWindowText {
@@ -110,6 +126,19 @@ a {
     width: 100%;
     text-align: center;
     float: left;
+}
+
+.topicHeader {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.topicHeader:hover{
+    color: #068045;
+    text-decoration: underline;
 }
 
 @media (max-width: 500px) {

@@ -1,0 +1,41 @@
+﻿.linkList{
+    padding: 15px 0 5px 15px;
+}
+
+.linkTable{
+    width: 100%;
+}
+
+.linkTableRightColumnButton{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    color: #8b3831;
+    padding: 0 10px 0 0;
+    float: right;  
+}
+.linkTableRightColumnButton:hover{
+    font-size: 24px;
+}
+
+.linkTableLeftColumn{
+    width: 80%;
+    height: 38px;
+}
+
+.linkTableRightColumn{
+    width: 20%;
+}
+
+.link{
+    font-size: 17px;
+    text-decoration: none;
+    color: black;
+}
+
+.link:hover{
+    color: #068045;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+}

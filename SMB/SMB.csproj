@@ -180,8 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\HomeStyle.css" />
-    <Content Include="Content\LinksStyle.css" />
-    <Content Include="Content\generalStyle.css" />
+    <Content Include="Content\linksStyle.css" />
+    <Content Include="Content\GeneralStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -213,6 +213,8 @@
     <Content Include="Views\Links\Index.cshtml" />
     <Content Include="Views\EGE\Index.cshtml" />
     <Content Include="Views\Links\Explore.cshtml" />
+    <Content Include="fonts\Ranchers-Regular.ttf" />
+    <Content Include="fonts\Oswald-Medium.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
