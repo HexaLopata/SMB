@@ -12,18 +12,24 @@
                  <td class="linkTableLeftColumn">
                      <a class="topicHeader" href="~/Links/Explore/@subject.Id">@subject.Name</a>
                  </td>
-                 <td class="linkTableRightColumn">
-                     <a class="linkTableRightColumnButton" onclick="confirmDelete('subjectId', @subject.Id, '/Links/DeleteSubject/')">Удалить</a>
-                 </td>
-             </tr>
+                 @if (ViewBag.HasCookie)
+                 {
+                     <td class="linkTableRightColumn">
+                         <a class="linkTableRightColumnButton" onclick="confirmDelete('subjectId', @subject.Id, '/Links/DeleteSubject/')">Удалить</a>
+                     </td>
+                 }
+                 </tr>
          </table>
          <br />
      }
 </div>
+@if (ViewBag.HasCookie)
+{
 <div>
     <form style="width: 100%" method="post" action="~/Links/AddSubject/">
         <input type="text" name="subjectName" />
         <input type="submit" value="Добавить предмет" />
     </form>
 </div>
+}
 

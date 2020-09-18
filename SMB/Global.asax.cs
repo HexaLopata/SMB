@@ -1,4 +1,4 @@
-using SMB.Models.Links;
+using SMB.Models.DataBases;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;

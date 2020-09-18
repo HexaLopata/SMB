@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace SMB.Models.Links
+namespace SMB.Models.DataBases
 {
     public interface IDataBaseManager
     {

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using SMB.Models.DataBases;
+using System.Data.Entity;
 
 namespace SMB.Models.Links
 {

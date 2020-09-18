@@ -1,18 +1,25 @@
-﻿using System.Data.Entity;
+﻿using SMB.Models.Autentification;
+using SMB.Models.Links;
+using System.Data.Entity;
 
-namespace SMB.Models.Links
+namespace SMB.Models.DataBases
 {
-    public class LinkContext : DbContext
+    public class SMBContext : DbContext
     {
         public DbSet<Link> Links { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<RealProfile> Profiles { get; set; }
     }
 
-    public class LinkContextInitializer : DropCreateDatabaseAlways<LinkContext>
+    public class LinkContextInitializer : DropCreateDatabaseAlways<SMBContext>
     {
-        protected override void Seed(LinkContext context)
+        protected override void Seed(SMBContext context)
         {
+            var passwordHasher = new PasswordHasher();
+            var hashedPassword = passwordHasher.ReturnHashedPasswordAsString("password");
+            var admin = new RealProfile() { Name = "DoubleGrabli", Password = hashedPassword, Rank = ProfileRank.Admin };
+            context.Profiles.Add(admin);
             var algebra = new Subject() { Name = "Алгебра" };
             var trigonometry = new Topic() { Name = "Тригонометрия" };
             trigonometry.Links.Add(new Link() { Name = "Формулы приведения и как их запомнить", Content = "https://matemonline.com/dh/тригонометрия/formuly-privedenija/" });

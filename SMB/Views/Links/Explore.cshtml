@@ -17,27 +17,35 @@
                     <td class="linkTableLeftColumn">
                         <a class="topicHeader" onclick="openOrCloseList(this)">@topic.Name</a>
                     </td>
-                    <td class="linkTableRightColumn">
-                        <a class="linkTableRightColumnButton"  onclick="confirmDelete('topicId', @topic.Id, '/Links/DeleteTopic/')">Удалить</a>
-                    </td>
-                </tr>
+                    @if (ViewBag.HasCookie)
+                    {
+                        <td class="linkTableRightColumn">
+                            <a class="linkTableRightColumnButton" onclick="confirmDelete('topicId', @topic.Id, '/Links/DeleteTopic/')">Удалить</a>
+                        </td>
+                    }
+                    </tr>
             </table>
 
             <div class="linkList" style="@(topic.IsOpen ? "" : "display: none")">
                 @foreach (var link in topic.Links)
                 {
-                        <table class="linkTable">
-                            <tr>
-                                <td class="linkTableLeftColumn">
-                                    <a class="link" target="_blank" href="@link.Content">@link.Name</a>
-                                </td>
+                    <table class="linkTable">
+                        <tr>
+                            <td class="linkTableLeftColumn">
+                                <a class="link" target="_blank" href="@link.Content">@link.Name</a>
+                            </td>
+                            @if (ViewBag.HasCookie)
+                            {
                                 <td class="linkTableRightColumn">
                                     <a class="linkTableRightColumnButton" onclick="confirmDelete('linkId', @link.Id, '/Links/DeleteLink/')">Удалить</a>
                                 </td>
-                            </tr>
-                        </table>
+                            }
+                        </tr>
+                    </table>
                     <br />
                 }
+                @if (ViewBag.HasCookie)
+                {
                     <form style="width: 100%" method="post" action="~/Links/AddLink/">
                         <input type="hidden" value="@topic.Id" name="id" />
                         <table>
@@ -53,22 +61,29 @@
                             <tr>
                                 <td><input type="text" name="linkContent" /></td>
                             </tr>
+
                             <tr>
                                 <td><input type="submit" value="Добавить ссылку" /> </td>
                                 <td></td>
                             </tr>
+                            
                         </table>
                     </form>
-            </div>
+                }
+                </div>
+                
         </div>
 
     }
 </div>
-<br/>
-<form style="width: 100%" method="post" action="~/Links/AddTopic/@ViewBag.SubjectId">
-    <input type="text" name="topicName"/>
-    <input type="submit" value="Добавить тему"/>
-</form>
+<br />
+@if (ViewBag.HasCookie)
+{
+    <form style="width: 100%" method="post" action="~/Links/AddTopic/@ViewBag.SubjectId">
+        <input type="text" name="topicName" />
+        <input type="submit" value="Добавить тему" />
+    </form>
+}
 
 
 

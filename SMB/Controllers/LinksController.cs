@@ -1,4 +1,5 @@
-﻿using SMB.Models.Links;
+﻿using SMB.Models.DataBases;
+using SMB.Models.Links;
 using System.Data.Entity;
 using System.Web.Mvc;
 
@@ -6,17 +7,21 @@ namespace SMB.Controllers
 {
     public class LinksController : Controller
     {
-        private LinkContext linkDB = new LinkContext();
+        private SMBContext linkDB = new SMBContext();
         private readonly IDataBaseManager linkDataBaseManager = new LinkDataBaseManager();
 
         public ActionResult Index()
         {
+            CheckForAutorisationCookie();
+
             var subjects = linkDB.Subjects;
             return View(subjects);
         }
 
         public ActionResult Explore(int id)
         {
+            CheckForAutorisationCookie();
+
             var subject = linkDB.Subjects.Find(id);
             if (subject != null)
             {
@@ -89,6 +94,15 @@ namespace SMB.Controllers
             }
 
             return RedirectPermanent("~/Links/Index/");
+        }
+
+        private void CheckForAutorisationCookie()
+        {
+            var cookie = Request.Cookies.Get("SMB_AU");
+            if (cookie != null)
+                ViewBag.HasCookie = true;
+            else
+                ViewBag.HasCookie = false;
         }
     }
 }

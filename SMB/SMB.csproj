@@ -170,12 +170,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Autentification\HashedProfileManager.cs" />
+    <Compile Include="Models\Autentification\IProfile.cs" />
+    <Compile Include="Models\Autentification\IProfileManager.cs" />
+    <Compile Include="Models\Autentification\NullProfile.cs" />
+    <Compile Include="Models\Autentification\PasswordHasher.cs" />
+    <Compile Include="Models\Autentification\RealProfile.cs" />
     <Compile Include="Models\Links\Link.cs" />
-    <Compile Include="Models\Links\LinkContext.cs" />
+    <Compile Include="Models\DataBases\SMBContext.cs" />
     <Compile Include="Models\Links\Subject.cs" />
     <Compile Include="Models\Links\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Links\IDataBaseManager.cs" />
+    <Compile Include="Models\DataBases\IDataBaseManager.cs" />
     <Compile Include="Models\Links\LinkDataBaseManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,18 +191,8 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <None Include="Scripts\Jquery\jquery-3.4.1.intellisense.js" />
     <Content Include="Javascript\LinkListOpener.js" />
     <Content Include="Javascript\main.js" />
-    <Content Include="Scripts\Jquery\jquery-3.4.1.js" />
-    <Content Include="Scripts\Jquery\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\Jquery\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\Jquery\jquery-3.4.1.slim.min.js" />
-    <None Include="Scripts\Jquery\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\Jquery\jquery.validate.js" />
-    <Content Include="Scripts\Jquery\jquery.validate.min.js" />
-    <Content Include="Scripts\Jquery\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\Jquery\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -225,8 +221,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
-    <Content Include="Scripts\Jquery\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\Jquery\jquery-3.4.1.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
