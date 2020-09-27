@@ -2,7 +2,7 @@
 
 namespace SMB.Models.DataBases
 {
-    public interface IDataBaseManager
+    public interface ILinkDataBaseManager
     {
         /// <summary>
         /// Deletes the object by identifier.

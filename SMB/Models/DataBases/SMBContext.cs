@@ -1,4 +1,5 @@
 ﻿using SMB.Models.Autentification;
+using SMB.Models.Dictionary;
 using SMB.Models.Links;
 using System.Data.Entity;
 
@@ -10,6 +11,17 @@ namespace SMB.Models.DataBases
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<RealProfile> Profiles { get; set; }
+        public DbSet<Meaning> Meanings { get; set; }
+        public DbSet<Word> Words { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Meaning>().HasMany(w => w.Words)
+                .WithMany(m => m.Meanings)
+                .Map(t => t.MapLeftKey("MeaningId")
+                .MapRightKey("WordId")
+                .ToTable("MeaningWords"));    
+        }
     }
 
     public class LinkContextInitializer : DropCreateDatabaseAlways<SMBContext>

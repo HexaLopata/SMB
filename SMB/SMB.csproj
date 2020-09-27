@@ -176,15 +176,21 @@
     <Compile Include="Models\Autentification\NullProfile.cs" />
     <Compile Include="Models\Autentification\PasswordHasher.cs" />
     <Compile Include="Models\Autentification\RealProfile.cs" />
+    <Compile Include="Models\Dictionary\IWordManager.cs" />
+    <Compile Include="Models\Dictionary\Language.cs" />
+    <Compile Include="Models\Dictionary\Meaning.cs" />
+    <Compile Include="Models\Dictionary\Word.cs" />
+    <Compile Include="Models\Dictionary\WordManager.cs" />
     <Compile Include="Models\Links\Link.cs" />
     <Compile Include="Models\DataBases\SMBContext.cs" />
     <Compile Include="Models\Links\Subject.cs" />
     <Compile Include="Models\Links\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\DataBases\IDataBaseManager.cs" />
+    <Compile Include="Models\DataBases\ILinkDataBaseManager.cs" />
     <Compile Include="Models\Links\LinkDataBaseManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\dictionaryStyle.css" />
     <Content Include="Content\HomeStyle.css" />
     <Content Include="Content\linksStyle.css" />
     <Content Include="Content\GeneralStyle.css" />

@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace SMB.Models.Links
 {
-    public class LinkDataBaseManager : IDataBaseManager
+    public class LinkDataBaseManager : ILinkDataBaseManager
     {
         /// <summary>
         /// Adds the object in data base.

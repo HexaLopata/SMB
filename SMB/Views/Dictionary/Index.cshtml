@@ -1,6 +1,34 @@
 ﻿@{
     ViewBag.Title = "Словарь";
 }
-
-<h2>Index</h2>
+@Styles.Render("~/Content/dictionaryStyle.css")
+    <form method="post" class="dictContainer" action="~/Dictionary/AddWord">
+        <div class="partContainer" id="firstPartContainer">
+            <div class="selectLanguageField">
+                <select name="firstLanguage" class="select">
+                    <option selected value="rus">Русский</option>
+                    <option value="eng">Английский</option>
+                    <option value="deu">Немецкий</option>
+                </select>
+            </div>
+            <div>
+                <textarea name="word" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="partContainer" id="secondPartContainer">
+            <div class="selectLanguageField">
+                <select name="secondLanguage">
+                    <option value="rus">Русский</option>
+                    <option selected value="eng">Английский</option>
+                    <option value="deu">Немецкий</option>
+                </select>
+            </div>
+            <div>
+                <textarea name="translation" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="inputs">
+            <input class="submitButton" type="submit" value="Добавить в словарь"/>
+        </div>
+    </form>
 

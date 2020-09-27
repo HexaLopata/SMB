@@ -7,14 +7,14 @@ namespace SMB.Controllers
 {
     public class LinksController : Controller
     {
-        private SMBContext linkDB = new SMBContext();
-        private readonly IDataBaseManager linkDataBaseManager = new LinkDataBaseManager();
+        private SMBContext _db = new SMBContext();
+        private readonly ILinkDataBaseManager linkDataBaseManager = new LinkDataBaseManager();
 
         public ActionResult Index()
         {
             CheckForAutorisationCookie();
 
-            var subjects = linkDB.Subjects;
+            var subjects = _db.Subjects;
             return View(subjects);
         }
 
@@ -22,7 +22,7 @@ namespace SMB.Controllers
         {
             CheckForAutorisationCookie();
 
-            var subject = linkDB.Subjects.Find(id);
+            var subject = _db.Subjects.Find(id);
             if (subject != null)
             {
                 var topics = subject.Topics;
@@ -36,42 +36,42 @@ namespace SMB.Controllers
         [HttpPost]
         public RedirectResult AddTopic(int id, string topicName)
         {
-            var subject = linkDB.Subjects.Find(id);
-            return AddObjectToDataBaseAndRedirect(new Topic() { SubjectId = id, Name = topicName }, linkDB.Topics,
+            var subject = _db.Subjects.Find(id);
+            return AddObjectToDataBaseAndRedirect(new Topic() { SubjectId = id, Name = topicName }, _db.Topics,
                                                               topicName, subject);
         }
 
         [HttpPost]
         public RedirectResult AddLink(int id, string linkName, string linkContent)
         {
-            var topic = linkDB.Topics.Find(id);
+            var topic = _db.Topics.Find(id);
 
-            return AddObjectToDataBaseAndRedirect(new Link() { TopicId = id, Name = linkName, Content = linkContent }, linkDB.Links,
+            return AddObjectToDataBaseAndRedirect(new Link() { TopicId = id, Name = linkName, Content = linkContent }, _db.Links,
                                                              linkName, topic);
         }
 
         [HttpPost]
         public RedirectResult AddSubject(string subjectName)
         {
-            return AddObjectToDataBaseAndRedirect(new Subject() { Name = subjectName }, linkDB.Subjects, subjectName, subjectName);
+            return AddObjectToDataBaseAndRedirect(new Subject() { Name = subjectName }, _db.Subjects, subjectName, subjectName);
         }
 
         [HttpPost]
         public RedirectResult DeleteLink(int linkId)
         {
-            return DeleteModelAndRedirect(linkId, linkDB.Links, linkDB);
+            return DeleteModelAndRedirect(linkId, _db.Links, _db);
         }
 
         [HttpPost]
         public RedirectResult DeleteTopic(int topicId)
         {
-            return DeleteModelAndRedirect(topicId, linkDB.Topics, linkDB);
+            return DeleteModelAndRedirect(topicId, _db.Topics, _db);
         }
 
         [HttpPost]
         public RedirectResult DeleteSubject(int subjectId)
         {
-            return DeleteModelAndRedirect(subjectId, linkDB.Subjects, linkDB);
+            return DeleteModelAndRedirect(subjectId, _db.Subjects, _db);
         }
 
         private RedirectResult DeleteModelAndRedirect<T>(int id, DbSet<T> modelType, DbContext db) where T : class
@@ -88,7 +88,7 @@ namespace SMB.Controllers
             {
                 if (nameForCheck.Trim() != string.Empty)
                 {
-                    linkDataBaseManager.AddObjectInDataBase(obj, modelSet, linkDB);
+                    linkDataBaseManager.AddObjectInDataBase(obj, modelSet, _db);
                 }
                 return RedirectPermanent(HttpContext.Request.ServerVariables["HTTP_REFERER"]);
             }
