@@ -1,34 +1,39 @@
 ﻿@{
     ViewBag.Title = "Словарь";
 }
-@Styles.Render("~/Content/dictionaryStyle.css")
-    <form method="post" class="dictContainer" action="~/Dictionary/AddWord">
-        <div class="partContainer" id="firstPartContainer">
-            <div class="selectLanguageField">
-                <select name="firstLanguage" class="select">
-                    <option selected value="rus">Русский</option>
-                    <option value="eng">Английский</option>
-                    <option value="deu">Немецкий</option>
-                </select>
-            </div>
-            <div>
-                <textarea name="word" rows="5"></textarea>
-            </div>
+@Styles.Render("~/Content/DictionaryStyle.css")
+<form method="post" class="dictContainer" action="~/Dictionary/AddWord">
+    <div class="partContainer" id="firstPartContainer">
+        <div class="selectLanguageField">
+            <select name="firstLanguage" class="select">
+                @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
+                {
+                    <option>@language.ToString()</option>
+                }
+            </select>
         </div>
-        <div class="partContainer" id="secondPartContainer">
-            <div class="selectLanguageField">
-                <select name="secondLanguage">
-                    <option value="rus">Русский</option>
-                    <option selected value="eng">Английский</option>
-                    <option value="deu">Немецкий</option>
-                </select>
-            </div>
-            <div>
-                <textarea name="translation" rows="5"></textarea>
-            </div>
+        <div>
+            <textarea name="word" rows="5"></textarea>
         </div>
-        <div class="inputs">
-            <input class="submitButton" type="submit" value="Добавить в словарь"/>
+    </div>
+    <div class="partContainer" id="secondPartContainer">
+        <div class="selectLanguageField">
+            <select name="secondLanguage">
+                @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
+                {
+                    <option>@language.ToString()</option>
+                }
+            </select>
         </div>
-    </form>
+        <div>
+            <textarea name="translation" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="inputs">
+        <input class="dictionaryButton" type="submit" value="Добавить в словарь" />
+        <button type="button" class="dictionaryButton"><a style="font-size: 13px; text-decoration: none; color: black;" href="Show">Просмотреть слова</a></button>
+        <button type="button" class="dictionaryButton"><a style="font-size: 13px; text-decoration: none; color: black;" href="Test">Перейти к тесту</a></button>
+    </div>
+</form>
+
 

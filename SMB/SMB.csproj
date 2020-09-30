@@ -190,10 +190,10 @@
     <Compile Include="Models\Links\LinkDataBaseManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\dictionaryStyle.css" />
+    <Content Include="Content\DictionaryStyle.css" />
     <Content Include="Content\HomeStyle.css" />
     <Content Include="Content\linksStyle.css" />
-    <Content Include="Content\GeneralStyle.css" />
+    <Content Include="Content\MainStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -227,6 +227,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
+    <Content Include="Views\Dictionary\Show.cshtml" />
+    <Content Include="Views\Dictionary\Test.cshtml" />
+    <Content Include="Views\Dictionary\WordDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

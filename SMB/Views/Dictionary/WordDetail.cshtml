@@ -1,0 +1,20 @@
+﻿@model SMB.Models.Dictionary.Word
+@{
+    ViewBag.Title = "Детали о слове";
+}
+
+<h2>@Model.Value</h2>
+<h1>Язык: @Model.Language</h1>
+<h3>Переводы</h3>
+@foreach(var meaning in Model.Meanings)
+{
+    foreach(var word in meaning.Words)
+    {
+        if (word.Value != Model.Value && word.Language != Model.Language)
+        {
+            <p>@word.Value (@word.Language)</p>
+        }
+    }
+    <br/>
+}
+

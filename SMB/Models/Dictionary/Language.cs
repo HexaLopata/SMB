@@ -2,12 +2,12 @@
 {
     public enum Language
     {
-        rus,
-        eng,
-        fra,
-        deu,
-        spa,
-        jpn,
-        chi,
+        Russian,
+        English,
+        French,
+        German,
+        Spanish,
+        Japanese,
+        Chinese,
     }
 }

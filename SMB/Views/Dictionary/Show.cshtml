@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SMB.Models.Dictionary.Word>
+@{
+    ViewBag.Title = "Просмотр слов";
+}
+
+@Styles.Render("~/Content/linksStyle.css")
+<h1>Список слов</h1>
+<table class="linkTable">
+    @foreach (SMB.Models.Dictionary.Word word in Model)
+    {
+        <tr>
+            <td class="linkTableLeftColumn">
+                <a class="topicHeader" href="~/Dictionary/WordDetail/@word.Id">@word.Value</a>
+            </td>
+            <td class="linkTableRightColumn">
+                <b style="float: right">@word.Language.ToString()</b>
+            </td>
+        </tr>
+    }
+</table>
+
+<div style="display: flex">
+    @for(int i = 1; i <= ViewBag.PageCount; i++)
+    {
+        <div class="pageLink">
+            <a style="text-decoration: none; color: #068045" href="~/Dictionary/Show/?pageNumber=@i">@i</a>
+        </div>
+    }
+</div>

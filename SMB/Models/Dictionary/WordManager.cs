@@ -72,9 +72,8 @@ namespace SMB.Models.Dictionary
                     {
                         foreach (var wordTranslation in allSecondWordTranslationsInCorrectFormat)
                         {
-                            if ((word.Item1.Value == wordTranslation.Item1.Value &&
-                                word.Item1.Language == wordTranslation.Item1.Language) ||
-                                wordsWithOneMeaning.Where(i => i.Item2 == word.Item2).Count() > 0)
+                            if (word.Item1.Value == wordTranslation.Item1.Value &&
+                                word.Item1.Language == wordTranslation.Item1.Language)
                                 wordsWithOneMeaning.Add(word);
                         }
                     }
@@ -83,11 +82,22 @@ namespace SMB.Models.Dictionary
                     {
                         foreach (var wordTranslation in allFirstWordTranslationsInCorrectFormat)
                         {
-                            if ((word.Item1.Value == wordTranslation.Item1.Value &&
-                                word.Item1.Language == wordTranslation.Item1.Language) ||
-                                wordsWithOneMeaning.Where(i => i.Item2 == word.Item2).Count() > 0)
+                            if (word.Item1.Value == wordTranslation.Item1.Value &&
+                                word.Item1.Language == wordTranslation.Item1.Language)                            
                                 wordsWithOneMeaning.Add(word);
                         }
+                    }
+
+                    foreach (var word in allFirstWordTranslationsInCorrectFormat)
+                    {
+                        if (wordsWithOneMeaning.Where(i => i.Item2 == word.Item2).Count() > 0)
+                            wordsWithOneMeaning.Add(word);
+                    }
+
+                    foreach (var word in allSecondWordTranslationsInCorrectFormat)
+                    {
+                        if(wordsWithOneMeaning.Where(i => i.Item2 == word.Item2).Count() > 0)
+                            wordsWithOneMeaning.Add(word);
                     }
 
                     var meaning = new Meaning();
