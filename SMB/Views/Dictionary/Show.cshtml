@@ -5,6 +5,20 @@
 
 @Styles.Render("~/Content/linksStyle.css")
 <h1>Список слов</h1>
+<form method="get" action="~/Dictionary/Show">
+    <b>Язык:</b>
+    <select name="language">
+        <option selected="selected">Any</option>
+        @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
+        {
+            <option @(ViewBag.Language == language.ToString() ? "selected" : "")>@language.ToString()</option>
+        }
+    </select>
+    <b>Поиск:</b>
+    <input type="text" name="contains" value="@ViewBag.Contains" />
+    <input type="submit" value="Поиск" />
+</form>
+
 <table class="linkTable">
     @foreach (SMB.Models.Dictionary.Word word in Model)
     {
@@ -23,7 +37,8 @@
     @for(int i = 1; i <= ViewBag.PageCount; i++)
     {
         <div class="pageLink">
-            <a style="text-decoration: none; color: #068045" href="~/Dictionary/Show/?pageNumber=@i">@i</a>
+            <a style="text-decoration: none; color: #068045"
+               href="~/Dictionary/Show/?pageNumber=@i&language=@ViewBag.Language&contains=@ViewBag.Contains">@i</a>
         </div>
     }
 </div>

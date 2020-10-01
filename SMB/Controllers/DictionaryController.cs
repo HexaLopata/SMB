@@ -49,16 +49,36 @@ namespace SMB.Controllers
             return RedirectPermanent("~/Dictionary/Index");
         }
 
-        public ActionResult Show(int pageNumber = 1)
+        public ActionResult Show(int pageNumber = 1, string language = "", string contains = "")
         {
             IQueryable<Word> words = _db.Words;
             // Формула количества страниц учитывая количество элементов
+            if (!string.IsNullOrEmpty(language) && Enum.IsDefined(typeof(Language), language))
+            {
+                words = words.Where(w => w.Language.ToString() == language);
+            }
+            if(!string.IsNullOrEmpty(contains))
+            {
+                words = words.Where(w => w.Value.Contains(contains));
+            }
+
             ViewBag.PageCount = words.Count() / _wordsOnPage + (words.Count() % _wordsOnPage == 0 ? 0 : 1);
             words = words.OrderByDescending(w => w.Id)
                          .Skip((pageNumber - 1) * _wordsOnPage)
                          .Take(_wordsOnPage);
+            ViewBag.Language = language;
+            ViewBag.Contains = contains;
 
             return View(words.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult DeleteWord(int id)
+        {
+            var word = _db.Words.Find(id);
+            _db.Words.Remove(word);
+            _db.SaveChanges();
+            return RedirectPermanent("~/Dictionary/Show/");
         }
 
         public ActionResult Test()

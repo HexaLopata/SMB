@@ -4,6 +4,7 @@
 }
 
 <h2>@Model.Value</h2>
+<b onclick="confirmDelete('id', @Model.Id, '/Dictionary/DeleteWord/')">Удалить</b>
 <h1>Язык: @Model.Language</h1>
 <h3>Переводы</h3>
 @foreach(var meaning in Model.Meanings)
