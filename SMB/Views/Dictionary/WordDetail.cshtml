@@ -7,15 +7,21 @@
 <b onclick="confirmDelete('id', @Model.Id, '/Dictionary/DeleteWord/')">Удалить</b>
 <h1>Язык: @Model.Language</h1>
 <h3>Переводы</h3>
-@foreach(var meaning in Model.Meanings)
+@foreach (var meaning in Model.Meanings)
 {
-    foreach(var word in meaning.Words)
+    foreach (var word in meaning.Words)
     {
         if (word.Value != Model.Value && word.Language != Model.Language)
         {
-            <p>@word.Value (@word.Language)</p>
+            <form method="post" action="~/Dictionary/DeleteWordConnection/">
+                <input type="hidden" name="wordId" value="@Model.Id" />
+                <input type="hidden" name="translationId" value="@word.Id" />
+                <input type="hidden" name="meaningId" value="@meaning.Id" />
+                <p>@word.Value (@word.Language)</p>
+                <input type="submit" value="Удалить связь" />
+            </form>
         }
     }
-    <br/>
+    <br />
 }
 

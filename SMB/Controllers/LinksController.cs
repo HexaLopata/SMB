@@ -7,7 +7,7 @@ namespace SMB.Controllers
 {
     public class LinksController : Controller
     {
-        private SMBContext _db = new SMBContext();
+        private readonly SMBContext _db = new SMBContext();
         private readonly ILinkDataBaseManager linkDataBaseManager = new LinkDataBaseManager();
 
         public ActionResult Index()

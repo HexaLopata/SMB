@@ -4,9 +4,6 @@ namespace SMB
 {
     public class BundleConfig
     {
-        public static void RegisterBundles(BundleCollection bundles)
-        {
-
-        }
+        public static void RegisterBundles(BundleCollection bundles) { }
     }
 }

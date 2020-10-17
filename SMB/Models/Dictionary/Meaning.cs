@@ -4,7 +4,7 @@ namespace SMB.Models.Dictionary
 {
     public class Meaning
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public virtual ICollection<Word> Words { get; set; }
 

@@ -7,7 +7,7 @@ namespace SMB.Models.Autentification
     /// </summary>
     public class HashedProfileManager : IProfileManager
     {
-        SMBContext _db;
+        private readonly SMBContext _db;
 
         /// <summary>
         /// Сверяет логин с базой данных и проверяет хэш пароля, если хэши совпадают, то возвращает профиль с указанным логином

@@ -7,7 +7,7 @@ namespace SMB.Controllers
 {
     public class HomeController : Controller
     {
-        private SMBContext _db = new SMBContext();
+        private readonly SMBContext _db = new SMBContext();
 
         public ActionResult Index()
         {

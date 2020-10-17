@@ -3,13 +3,14 @@ using SMB.Models.Dictionary;
 using System.Web.Mvc;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace SMB.Controllers
 {
     public class DictionaryController : Controller
     {
-        private IWordManager _wordManager;
-        private SMBContext _db;
+        private readonly IWordManager _wordManager;
+        private readonly SMBContext _db;
 
         private const int _wordsOnPage = 20;
 
@@ -19,9 +20,13 @@ namespace SMB.Controllers
             _wordManager = new WordManager(_db);
         }
 
-        public ActionResult Index()
+        public ActionResult AddWordMenu()
         {
-            return View();
+            var cookie = Request.Cookies.Get("SMB_AU");
+            if (cookie != null)
+                return View();
+            else
+                return new RedirectResult("~/Dictionary/Test");
         }
 
         [HttpPost]
@@ -46,7 +51,7 @@ namespace SMB.Controllers
                 }
             }
 
-            return RedirectPermanent("~/Dictionary/Index");
+            return RedirectPermanent("~/Dictionary/AddWordMenu");
         }
 
         public ActionResult Show(int pageNumber = 1, string language = "", string contains = "")
@@ -62,7 +67,8 @@ namespace SMB.Controllers
                 words = words.Where(w => w.Value.Contains(contains));
             }
 
-            ViewBag.PageCount = words.Count() / _wordsOnPage + (words.Count() % _wordsOnPage == 0 ? 0 : 1);
+            ViewBag.PageCount = words.Count() / _wordsOnPage +
+                                (words.Count() % _wordsOnPage == 0 ? 0 : 1);
             words = words.OrderByDescending(w => w.Id)
                          .Skip((pageNumber - 1) * _wordsOnPage)
                          .Take(_wordsOnPage);
@@ -81,8 +87,53 @@ namespace SMB.Controllers
             return RedirectPermanent("~/Dictionary/Show/");
         }
 
-        public ActionResult Test()
+        [HttpPost]
+        public ActionResult DeleteWordConnection(int wordId, int translationId, int meaningId)
         {
+            var word = _db.Words.Find(wordId);
+            var translation = _db.Words.Find(translationId);
+            var meaning = _db.Meanings.Find(meaningId);
+            _wordManager.DeleteWordConnectionFromDB(word, translation, meaning);
+            _db.SaveChanges();
+            return RedirectPermanent(HttpContext.Request.ServerVariables["HTTP_REFERER"]);
+        }
+
+        private string GetRandomWord(string language)
+        {
+            var wordArray = _db.Words.Where(w => w.Language == language).ToArray();
+            if (wordArray.Length != 0)
+            {
+                return wordArray[new Random().Next(0, wordArray.Length)].Value;
+            }
+            else
+                return string.Empty;
+        }
+
+        private string GetTranslation(string word, string firstLanguage, string secondLanguage)
+        {
+            var currentWord = _db.Words.FirstOrDefault(w => w.Value == word.Trim() && w.Language == firstLanguage);
+            var sb = new StringBuilder();
+            var translations = currentWord.Meanings.SelectMany(m => m.Words)
+                                                   .Where(w => w.Language == secondLanguage);
+            foreach(Word word1 in translations)
+            {
+                sb.Append(word1.Value + " ");
+            }
+            return sb.ToString().Trim();
+            
+        }
+
+        public ActionResult Test(string firstLanguage = "", string secondLanguage = "", string word = "")
+        {
+            ViewBag.PreviousWord = word;
+            ViewBag.RandomWord = GetRandomWord(firstLanguage);
+
+            if (word != string.Empty)
+            {
+                ViewBag.Translation = GetTranslation(word, firstLanguage, secondLanguage);
+            }
+            else ViewBag.Translation = string.Empty;
+
             return View();
         }
 

@@ -6,7 +6,7 @@ namespace SMB.Models.Dictionary
 {
     public class WordManager : IWordManager
     {
-        private SMBContext _db;
+        private readonly SMBContext _db;
 
         public WordManager(SMBContext db)
         {
@@ -46,22 +46,23 @@ namespace SMB.Models.Dictionary
 
                     // Переводим эти слова в нужный формат
                     List<(Word, Meaning)> allFirstWordTranslationsInCorrectFormat = new List<(Word, Meaning)>();
-                    foreach (var tuple in allFirstWordTranslations)
+                    foreach (var (Words, m) in allFirstWordTranslations)
                     {
-                        foreach (var word in tuple.Words)
+                        foreach (var word in Words)
                         {
-                            allFirstWordTranslationsInCorrectFormat.Add((word, tuple.m));
+                            allFirstWordTranslationsInCorrectFormat.Add((word, m));
                         }
                     }
                     // Проворачиваем то же самое и со вторым словом
-                    var allSecondWordTranslations = words.OrderByDescending(e => e.Id).First().Meanings.Select(m => (m.Words, m));
+                    var allSecondWordTranslations = words.OrderByDescending(e => e.Id)
+                                                    .First().Meanings.Select(m => (m.Words, m));
 
                     List<(Word, Meaning)> allSecondWordTranslationsInCorrectFormat = new List<(Word, Meaning)>();
-                    foreach (var tuple in allSecondWordTranslations)
+                    foreach (var (Words, m) in allSecondWordTranslations)
                     {
-                        foreach (var word in tuple.Words)
+                        foreach (var word in Words)
                         {
-                            allSecondWordTranslationsInCorrectFormat.Add((word, tuple.m));
+                            allSecondWordTranslationsInCorrectFormat.Add((word, m));
                         }
                     }
 
@@ -78,6 +79,7 @@ namespace SMB.Models.Dictionary
                         }
                     }
 
+                    // Алгоритм повторяется дважды, т.к он зависит от порядка, это нельзя допустить
                     foreach (var word in allSecondWordTranslationsInCorrectFormat)
                     {
                         foreach (var wordTranslation in allFirstWordTranslationsInCorrectFormat)
@@ -90,13 +92,21 @@ namespace SMB.Models.Dictionary
 
                     foreach (var word in allFirstWordTranslationsInCorrectFormat)
                     {
-                        if (wordsWithOneMeaning.Where(i => i.Item2 == word.Item2).Count() > 0)
+                        if (wordsWithOneMeaning.Where(i => i.Item2 == word.Item2).Count() > 0 ||
+                                                     (
+                                                        word.Item1.Value == firstWord.Value &&
+                                                        word.Item1.Language == firstWord.Language
+                                                     ))
                             wordsWithOneMeaning.Add(word);
                     }
 
                     foreach (var word in allSecondWordTranslationsInCorrectFormat)
                     {
-                        if(wordsWithOneMeaning.Where(i => i.Item2 == word.Item2).Count() > 0)
+                        if(wordsWithOneMeaning.Where(i => i.Item2 == word.Item2).Count() > 0 ||
+                                                     (
+                                                        word.Item1.Value == translation.Value &&
+                                                        word.Item1.Language == translation.Language
+                                                     ))
                             wordsWithOneMeaning.Add(word);
                     }
 
@@ -119,6 +129,32 @@ namespace SMB.Models.Dictionary
                     }
                     break;
             }
+            ClearAllEmptyMeaningsAndSaveChanges();
+        }
+
+        public void DeleteWordConnectionFromDB(Word word, Word translation, Meaning meaning)
+        {
+            // Удаляем перевод из предыдущего значения
+            meaning.Words.Remove(translation);
+            // Создаем для него новое значение
+            var translationMeaning = new Meaning();
+            translationMeaning.Words.Add(translation);
+            var allPreviosMeaningWords = meaning.Words.Where(w => w.Id != word.Id);
+            // Добавляем в новое значение все слова из предыдущего значения кроме слова,
+            // связь с которым мы хотим разорвать
+            foreach(Word word1 in allPreviosMeaningWords)
+            {
+                translationMeaning.Words.Add(word1);
+            }
+            // Сохраняем изменения
+            _db.Meanings.Add(translationMeaning);
+            ClearAllEmptyMeaningsAndSaveChanges();
+        }
+
+        private void ClearAllEmptyMeaningsAndSaveChanges()
+        {
+            var emptyMeanings = _db.Meanings.Where(m => m.Words.Count == 0);
+            _db.Meanings.RemoveRange(emptyMeanings);
             _db.SaveChanges();
         }
     }

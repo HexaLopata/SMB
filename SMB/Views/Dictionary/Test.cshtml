@@ -3,3 +3,28 @@
 }
 
 @Styles.Render("~/Content/DictionaryStyle.css")
+    <form method="post" class="dictContainer">
+        <select name="firstLanguage" class="select">
+            @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
+            {
+                <option>@language.ToString()</option>
+            }
+        </select>
+        <select name="secondLanguage" class="select">
+            @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
+            {
+                <option>@language.ToString()</option>
+            }
+        </select>
+        <input type="hidden" value="@(ViewBag.Translation == string.Empty ? ViewBag.RandomWord : "")" name="word" />
+        <div>
+            <b>Слово: @(ViewBag.Translation == string.Empty ? ViewBag.RandomWord : ViewBag.PreviousWord)</b>
+        </div>
+        <div>
+            <b>Правильный перевод: @ViewBag.Translation</b>
+        </div>
+        <input type="text" />
+        <input class="dictionaryButton" type="submit" value="Получить слово" />
+    </form>
+
+
