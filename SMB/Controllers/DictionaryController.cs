@@ -20,13 +20,15 @@ namespace SMB.Controllers
             _wordManager = new WordManager(_db);
         }
 
-        public ActionResult AddWordMenu()
+        public ActionResult AddWordMenu(string firstLanguage = "Russian", string secondLanguage = "English")
         {
+            ViewBag.FirstLanguage = firstLanguage;
+            ViewBag.SecondLanguage = secondLanguage;
             var cookie = Request.Cookies.Get("SMB_AU");
             if (cookie != null)
                 return View();
             else
-                return new RedirectResult("~/Dictionary/Test");
+                return new RedirectResult($"~/Dictionary/Test");
         }
 
         [HttpPost]
@@ -51,7 +53,7 @@ namespace SMB.Controllers
                 }
             }
 
-            return RedirectPermanent("~/Dictionary/AddWordMenu");
+            return RedirectPermanent($"~/Dictionary/AddWordMenu?firstLanguage={firstLanguage}&secondLanguage={secondLanguage}");
         }
 
         public ActionResult Show(int pageNumber = 1, string language = "", string contains = "")
@@ -98,9 +100,12 @@ namespace SMB.Controllers
             return RedirectPermanent(HttpContext.Request.ServerVariables["HTTP_REFERER"]);
         }
 
-        private string GetRandomWord(string language)
+        private string GetRandomWord(string language, string secondLanguage)
         {
-            var wordArray = _db.Words.Where(w => w.Language == language).ToArray();
+            var wordArray = _db.Words.Where(w => w.Language == language)
+                                     .Where(w => w.Meanings.SelectMany(m => m.Words)
+                                                            .Where(t => t.Language == secondLanguage)
+                                                            .Count() > 0).ToArray();
             if (wordArray.Length != 0)
             {
                 return wordArray[new Random().Next(0, wordArray.Length)].Value;
@@ -119,14 +124,15 @@ namespace SMB.Controllers
             {
                 sb.Append(word1.Value + " ");
             }
-            return sb.ToString().Trim();
-            
+            return sb.ToString().Trim();     
         }
 
-        public ActionResult Test(string firstLanguage = "", string secondLanguage = "", string word = "")
+        public ActionResult Test(string firstLanguage = "Russian", string secondLanguage = "English", string word = "")
         {
+            ViewBag.FirstLanguage = firstLanguage;
+            ViewBag.SecondLanguage = secondLanguage;
             ViewBag.PreviousWord = word;
-            ViewBag.RandomWord = GetRandomWord(firstLanguage);
+            ViewBag.RandomWord = GetRandomWord(firstLanguage, secondLanguage);
 
             if (word != string.Empty)
             {

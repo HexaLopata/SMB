@@ -7,7 +7,7 @@
 <h1>Список слов</h1>
 <form method="get" action="~/Dictionary/Show">
     <b>Язык:</b>
-    <select name="language">
+    <select class="simpleTextInput" name="language">
         <option selected="selected">Any</option>
         @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
         {
@@ -15,8 +15,8 @@
         }
     </select>
     <b>Поиск:</b>
-    <input type="text" name="contains" value="@ViewBag.Contains" />
-    <input type="submit" value="Поиск" />
+    <input class="simpleTextInput" type="text" name="contains" value="@ViewBag.Contains" />
+    <input class="redButton" type="submit" value="Поиск" />
 </form>
 
 <table class="linkTable">

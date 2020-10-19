@@ -178,7 +178,7 @@
     <Content Include="Content\DictionaryStyle.css" />
     <Content Include="Content\HomeStyle.css" />
     <Content Include="Content\linksStyle.css" />
-    <Content Include="Content\MainStyle.css" />
+    <Content Include="Content\mainStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

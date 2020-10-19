@@ -53,17 +53,17 @@
                                 <td><p>Содержимое ссылки </p></td>
                             </tr>
                             <tr>
-                                <td><input type="text" name="linkName" /> </td>
+                                <td><input class="simpleTextInput" type="text" name="linkName" /> </td>
                             </tr>
                             <tr>
                                 <td><p>Адрес </p></td>
                             </tr>
                             <tr>
-                                <td><input type="text" name="linkContent" /></td>
+                                <td><input class="simpleTextInput" type="text" name="linkContent" /></td>
                             </tr>
 
                             <tr>
-                                <td><input type="submit" value="Добавить ссылку" /> </td>
+                                <td><input class="redButton" type="submit" value="Добавить ссылку" /> </td>
                                 <td></td>
                             </tr>
                             
@@ -80,8 +80,8 @@
 @if (ViewBag.HasCookie)
 {
     <form style="width: 100%" method="post" action="~/Links/AddTopic/@ViewBag.SubjectId">
-        <input type="text" name="topicName" />
-        <input type="submit" value="Добавить тему" />
+        <input class="simpleTextInput" type="text" name="topicName" />
+        <input class="redButton" type="submit" value="Добавить тему" />
     </form>
 }
 

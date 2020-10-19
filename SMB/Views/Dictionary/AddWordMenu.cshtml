@@ -8,7 +8,7 @@
             <select name="firstLanguage" class="select">
                 @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
                 {
-                    <option>@language.ToString()</option>
+                    <option @(ViewBag.FirstLanguage == language.ToString() ? "selected" : "")>@language.ToString()</option>
                 }
             </select>
         </div>
@@ -21,7 +21,7 @@
             <select name="secondLanguage">
                 @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
                 {
-                    <option>@language.ToString()</option>
+                    <option @(ViewBag.SecondLanguage == language.ToString() ? "selected" : "")>@language.ToString()</option>
                 }
             </select>
         </div>

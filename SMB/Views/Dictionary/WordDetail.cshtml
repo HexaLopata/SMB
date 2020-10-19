@@ -3,8 +3,10 @@
     ViewBag.Title = "Детали о слове";
 }
 
+@Styles.Render("~/Content/linksStyle.css")
+
 <h2>@Model.Value</h2>
-<b onclick="confirmDelete('id', @Model.Id, '/Dictionary/DeleteWord/')">Удалить</b>
+<b class="linkTableRightColumnButton" style="float: unset" onclick="confirmDelete('id', @Model.Id, '/Dictionary/DeleteWord/')">Удалить</b>
 <h1>Язык: @Model.Language</h1>
 <h3>Переводы</h3>
 @foreach (var meaning in Model.Meanings)
@@ -18,7 +20,7 @@
                 <input type="hidden" name="translationId" value="@word.Id" />
                 <input type="hidden" name="meaningId" value="@meaning.Id" />
                 <p>@word.Value (@word.Language)</p>
-                <input type="submit" value="Удалить связь" />
+                <input class="redButton" type="submit" value="Удалить связь" />
             </form>
         }
     }

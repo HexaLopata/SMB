@@ -3,28 +3,68 @@
 }
 
 @Styles.Render("~/Content/DictionaryStyle.css")
-    <form method="post" class="dictContainer">
-        <select name="firstLanguage" class="select">
-            @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
-            {
-                <option>@language.ToString()</option>
-            }
-        </select>
-        <select name="secondLanguage" class="select">
-            @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
-            {
-                <option>@language.ToString()</option>
-            }
-        </select>
+<form style="display: flex; overflow: auto" method="post" class="dictContainer">
+    <div style="padding: 20px 20px;">
+        <div>
+            <h3>Язык ввода</h3>
+            <select name="firstLanguage" class="selectLanguageField">
+                @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
+                {
+                    <option @(ViewBag.FirstLanguage == language.ToString() ? "selected" : "")>@language.ToString()</option>
+                }
+            </select>
+        </div>
+        <div>
+            <h3>Язык для перевода</h3>
+            <select name="secondLanguage" class="selectLanguageField">
+                @foreach (var language in Enum.GetValues(typeof(SMB.Models.Dictionary.Language)))
+                {
+                    <option @(ViewBag.SecondLanguage == language.ToString() ? "selected" : "")>@language.ToString()</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div style="padding: 20px 20px; margin-top: 20px; width: 100%;">
         <input type="hidden" value="@(ViewBag.Translation == string.Empty ? ViewBag.RandomWord : "")" name="word" />
         <div>
-            <b>Слово: @(ViewBag.Translation == string.Empty ? ViewBag.RandomWord : ViewBag.PreviousWord)</b>
+            <b>Слово :</b>
+            <p style="width: 100%;
+                      border-radius: 5px;
+                      border: solid black 1px;
+                      height: 10%;
+                      min-height: 30px;
+                      box-shadow: 0px 0px 2px black;
+                      background-color: white;
+                      text-align: center">@(ViewBag.Translation == string.Empty ? ViewBag.RandomWord : ViewBag.PreviousWord)</p>
         </div>
         <div>
-            <b>Правильный перевод: @ViewBag.Translation</b>
+            <b>Правильный перевод: </b>
+            <p style="width: 100%;
+                      border-radius: 5px;
+                      border: solid black 1px;
+                      box-shadow: 0px 0px 2px black;
+                      height: 10%;
+                      min-height: 30px;
+                      background-color: white;
+                      text-align: center;
+                      vertical-align: central">@ViewBag.Translation</p>
         </div>
-        <input type="text" />
-        <input class="dictionaryButton" type="submit" value="Получить слово" />
-    </form>
+        <div>
+            <b>Ваш перевод: </b>
+            <p>
+                <input type="text" style="width: 100%;
+              border-radius: 5px;
+              border: solid black 1px;
+              box-shadow: 0px 0px 2px black;
+              height: 10%;
+              min-height: 30px;
+              background-color: white;
+              text-align: center;
+              font-size: 15px" />
+            </p>
+            <input style="margin-left: 0" class="dictionaryButton" type="submit" value="Получить слово" />
+        </div>
+    </div>
+</form>
 
 

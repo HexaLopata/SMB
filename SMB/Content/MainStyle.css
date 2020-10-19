@@ -108,6 +108,20 @@ a {
     bottom: 20px; 
 }
 
+.simpleTextInput {
+    border-radius: 5px;
+}
+
+.redButton {
+    font-weight: 700;
+    color: white;
+    background-color: #ab3532;
+    border: 1px solid black;
+    width: auto;
+    height: 25px;
+    border-radius: 5px;
+}
+
 #backButton {
     font-weight: 700;
     color: white;
