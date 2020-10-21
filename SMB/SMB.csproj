@@ -155,7 +155,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Autentification\CookieManager.cs" />
     <Compile Include="Models\Autentification\HashedProfileManager.cs" />
+    <Compile Include="Models\Autentification\ICookieManager.cs" />
     <Compile Include="Models\Autentification\IProfile.cs" />
     <Compile Include="Models\Autentification\IProfileManager.cs" />
     <Compile Include="Models\Autentification\NullProfile.cs" />
@@ -183,7 +185,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Javascript\LinkListOpener.js" />
-    <Content Include="Javascript\main.js" />
+    <Content Include="Javascript\Main.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

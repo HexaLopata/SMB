@@ -46,23 +46,23 @@
                       height: 10%;
                       min-height: 30px;
                       background-color: white;
-                      text-align: center;
-                      vertical-align: central">@ViewBag.Translation</p>
+                      text-align: center">@ViewBag.Translation</p>
         </div>
         <div>
             <b>Ваш перевод: </b>
             <p>
-                <input type="text" style="width: 100%;
-              border-radius: 5px;
-              border: solid black 1px;
-              box-shadow: 0px 0px 2px black;
-              height: 10%;
-              min-height: 30px;
-              background-color: white;
-              text-align: center;
-              font-size: 15px" />
+                <input type="text" name="userTranslation" autocomplete="off" value="@ViewBag.UserTranslation" style="width: 100%;
+                                          border-radius: 5px;
+                                          border: solid black 1px;
+                                          box-shadow: 0px 0px 2px black;
+                                          height: 10%;
+                                          min-height: 30px;
+                                          background-color: white;
+                                          text-align: center;
+                                          font-size: 15px" />
             </p>
-            <input style="margin-left: 0" class="dictionaryButton" type="submit" value="Получить слово" />
+            <input style="margin-left: 0" class="dictionaryButton" type="submit"
+                   value=@(ViewBag.Translation != string.Empty ? "Далее" : "Получить слово") />
         </div>
     </div>
 </form>

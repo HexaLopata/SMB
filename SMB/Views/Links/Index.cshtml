@@ -26,8 +26,8 @@
 @if (ViewBag.HasCookie)
 {
 <div>
-    <form style="width: 100%" method="post" action="~/Links/AddSubject/">
-        <input class="simpleTextInput" type="text" name="subjectName" />
+    <form class="formWithValidation" style="width: 100%" method="post" action="~/Links/AddSubject/">
+        <input class="simpleTextInput textWithEmptyValidation" type="text" name="subjectName" />
         <input class="redButton" type="submit" value="Добавить предмет" />
     </form>
 </div>

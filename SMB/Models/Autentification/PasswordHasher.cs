@@ -7,7 +7,7 @@ namespace SMB.Models.Autentification
     public class PasswordHasher
     {
         private const string _key = "key";
-        private MD5 _md5;
+        private readonly MD5 _md5;
 
         /// <summary>
         /// Возвращает хэшированный пароль в виде строки

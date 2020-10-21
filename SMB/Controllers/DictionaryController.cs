@@ -4,12 +4,14 @@ using System.Web.Mvc;
 using System;
 using System.Linq;
 using System.Text;
+using SMB.Models.Autentification;
 
 namespace SMB.Controllers
 {
     public class DictionaryController : Controller
     {
         private readonly IWordManager _wordManager;
+        private readonly ICookieManager _cookieManager = new CookieManager();
         private readonly SMBContext _db;
 
         private const int _wordsOnPage = 20;
@@ -24,7 +26,7 @@ namespace SMB.Controllers
         {
             ViewBag.FirstLanguage = firstLanguage;
             ViewBag.SecondLanguage = secondLanguage;
-            var cookie = Request.Cookies.Get("SMB_AU");
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
             if (cookie != null)
                 return View();
             else
@@ -34,20 +36,24 @@ namespace SMB.Controllers
         [HttpPost]
         public ActionResult AddWord(string firstLanguage, string secondLanguage, string word, string translation)
         {
-            if (firstLanguage != null && secondLanguage != null)
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
             {
-                if (!(string.IsNullOrEmpty(word.Trim()) || string.IsNullOrEmpty(translation.Trim())))
+                if (firstLanguage != null && secondLanguage != null)
                 {
-                    if (word.Trim() != translation.Trim() && firstLanguage != secondLanguage)
+                    if (!(string.IsNullOrEmpty(word.Trim()) || string.IsNullOrEmpty(translation.Trim())))
                     {
-                        if (Enum.IsDefined(typeof(Language), firstLanguage) &&
-                            Enum.IsDefined(typeof(Language), secondLanguage))
+                        if (word.Trim() != translation.Trim() && firstLanguage != secondLanguage)
                         {
-                            _wordManager.AddWordInDB
-                            (
-                                new Word() { Language = firstLanguage, Value = word },
-                                new Word() { Language = secondLanguage, Value = translation }
-                            );
+                            if (Enum.IsDefined(typeof(Language), firstLanguage) &&
+                                Enum.IsDefined(typeof(Language), secondLanguage))
+                            {
+                                _wordManager.AddWordInDB
+                                (
+                                    new Word() { Language = firstLanguage, Value = word },
+                                    new Word() { Language = secondLanguage, Value = translation }
+                                );
+                            }
                         }
                     }
                 }
@@ -83,20 +89,28 @@ namespace SMB.Controllers
         [HttpPost]
         public ActionResult DeleteWord(int id)
         {
-            var word = _db.Words.Find(id);
-            _db.Words.Remove(word);
-            _db.SaveChanges();
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
+            {
+                var word = _db.Words.Find(id);
+                _db.Words.Remove(word);
+                _db.SaveChanges();
+            }
             return RedirectPermanent("~/Dictionary/Show/");
         }
 
         [HttpPost]
         public ActionResult DeleteWordConnection(int wordId, int translationId, int meaningId)
         {
-            var word = _db.Words.Find(wordId);
-            var translation = _db.Words.Find(translationId);
-            var meaning = _db.Meanings.Find(meaningId);
-            _wordManager.DeleteWordConnectionFromDB(word, translation, meaning);
-            _db.SaveChanges();
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
+            {
+                var word = _db.Words.Find(wordId);
+                var translation = _db.Words.Find(translationId);
+                var meaning = _db.Meanings.Find(meaningId);
+                _wordManager.DeleteWordConnectionFromDB(word, translation, meaning);
+                _db.SaveChanges();
+            }
             return RedirectPermanent(HttpContext.Request.ServerVariables["HTTP_REFERER"]);
         }
 
@@ -122,12 +136,12 @@ namespace SMB.Controllers
                                                    .Where(w => w.Language == secondLanguage);
             foreach(Word word1 in translations)
             {
-                sb.Append(word1.Value + " ");
+                sb.Append(word1.Value + ", ");
             }
-            return sb.ToString().Trim();     
+            return sb.ToString().Substring(0, sb.Length - 2).Trim();     
         }
 
-        public ActionResult Test(string firstLanguage = "Russian", string secondLanguage = "English", string word = "")
+        public ActionResult Test(string firstLanguage = "Russian", string secondLanguage = "English", string word = "", string userTranslation = "")
         {
             ViewBag.FirstLanguage = firstLanguage;
             ViewBag.SecondLanguage = secondLanguage;
@@ -137,6 +151,7 @@ namespace SMB.Controllers
             if (word != string.Empty)
             {
                 ViewBag.Translation = GetTranslation(word, firstLanguage, secondLanguage);
+                ViewBag.UserTranslation = userTranslation;
             }
             else ViewBag.Translation = string.Empty;
 

@@ -2,7 +2,7 @@
     ViewBag.Title = "Словарь";
 }
 @Styles.Render("~/Content/DictionaryStyle.css")
-<form method="post" class="dictContainer" action="~/Dictionary/AddWord">
+<form method="post" class="dictContainer formWithValidation" action="~/Dictionary/AddWord">
     <div class="partContainer" id="firstPartContainer">
         <div class="selectLanguageField">
             <select name="firstLanguage" class="select">
@@ -13,7 +13,7 @@
             </select>
         </div>
         <div>
-            <textarea name="word" rows="5"></textarea>
+            <textarea class="textWithEmptyValidation" name="word" rows="5"></textarea>
         </div>
     </div>
     <div class="partContainer" id="secondPartContainer">
@@ -26,7 +26,7 @@
             </select>
         </div>
         <div>
-            <textarea name="translation" rows="5"></textarea>
+            <textarea class="textWithEmptyValidation" name="translation" rows="5"></textarea>
         </div>
     </div>
     <div class="inputs">

@@ -14,3 +14,16 @@ function closeModalWindow() {
     let modalWindow = document.querySelector(".modalWindow")
     modalWindow.style.display = "none"
 }
+
+let formsWithValidate = document.querySelectorAll(".formWithValidation")
+
+for (let i = 0; i < formsWithValidate.length; i++) {
+    formsWithValidate[i].addEventListener("submit", function (event) {
+        let textAreas = formsWithValidate[i].querySelectorAll(".textWithEmptyValidation")
+        for (let j = 0; j < textAreas.length; j++) {
+            if (textAreas[j].value.trim() === "") {
+                event.preventDefault();
+            }
+        }
+    })
+}

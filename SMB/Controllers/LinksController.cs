@@ -1,4 +1,5 @@
-﻿using SMB.Models.DataBases;
+﻿using SMB.Models.Autentification;
+using SMB.Models.DataBases;
 using SMB.Models.Links;
 using System.Data.Entity;
 using System.Web.Mvc;
@@ -8,11 +9,12 @@ namespace SMB.Controllers
     public class LinksController : Controller
     {
         private readonly SMBContext _db = new SMBContext();
+        private readonly ICookieManager _cookieManager = new CookieManager(); 
         private readonly ILinkDataBaseManager linkDataBaseManager = new LinkDataBaseManager();
 
         public ActionResult Index()
         {
-            CheckForAutorisationCookie();
+            ViewBag.HasCookie = _cookieManager.CheckForAutorisationCookie(Request);
 
             var subjects = _db.Subjects;
             return View(subjects);
@@ -20,7 +22,7 @@ namespace SMB.Controllers
 
         public ActionResult Explore(int id)
         {
-            CheckForAutorisationCookie();
+            ViewBag.HasCookie = _cookieManager.CheckForAutorisationCookie(Request);
 
             var subject = _db.Subjects.Find(id);
             if (subject != null)
@@ -36,42 +38,72 @@ namespace SMB.Controllers
         [HttpPost]
         public RedirectResult AddTopic(int id, string topicName)
         {
-            var subject = _db.Subjects.Find(id);
-            return AddObjectToDataBaseAndRedirect(new Topic() { SubjectId = id, Name = topicName }, _db.Topics,
-                                                              topicName, subject);
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
+            {
+                var subject = _db.Subjects.Find(id);
+                return AddObjectToDataBaseAndRedirect(new Topic() { SubjectId = id, Name = topicName }, _db.Topics,
+                                                                  topicName, subject);
+            }
+            return null;
         }
 
         [HttpPost]
         public RedirectResult AddLink(int id, string linkName, string linkContent)
         {
-            var topic = _db.Topics.Find(id);
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
+            {
+                var topic = _db.Topics.Find(id);
 
-            return AddObjectToDataBaseAndRedirect(new Link() { TopicId = id, Name = linkName, Content = linkContent }, _db.Links,
-                                                             linkName, topic);
+                return AddObjectToDataBaseAndRedirect(new Link() { TopicId = id, Name = linkName, Content = linkContent }, _db.Links,
+                                                                 linkName, topic);
+            }
+            return null;
         }
 
         [HttpPost]
         public RedirectResult AddSubject(string subjectName)
         {
-            return AddObjectToDataBaseAndRedirect(new Subject() { Name = subjectName }, _db.Subjects, subjectName, subjectName);
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
+            {
+                return AddObjectToDataBaseAndRedirect(new Subject() { Name = subjectName }, _db.Subjects, subjectName, subjectName);
+            }
+            return null;
         }
 
         [HttpPost]
         public RedirectResult DeleteLink(int linkId)
         {
-            return DeleteModelAndRedirect(linkId, _db.Links, _db);
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
+            {
+                return DeleteModelAndRedirect(linkId, _db.Links, _db);
+            }
+            return null;
         }
 
         [HttpPost]
         public RedirectResult DeleteTopic(int topicId)
         {
-            return DeleteModelAndRedirect(topicId, _db.Topics, _db);
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
+            {
+                return DeleteModelAndRedirect(topicId, _db.Topics, _db);
+            }
+            return null;
         }
 
         [HttpPost]
         public RedirectResult DeleteSubject(int subjectId)
         {
-            return DeleteModelAndRedirect(subjectId, _db.Subjects, _db);
+            var cookie = Request.Cookies.Get(_cookieManager.AutorizationCookieName);
+            if (cookie != null)
+            {
+                return DeleteModelAndRedirect(subjectId, _db.Subjects, _db);
+            }
+            return null;
         }
 
         private RedirectResult DeleteModelAndRedirect<T>(int id, DbSet<T> modelType, DbContext db) where T : class
@@ -94,15 +126,6 @@ namespace SMB.Controllers
             }
 
             return RedirectPermanent("~/Links/Index/");
-        }
-
-        private void CheckForAutorisationCookie()
-        {
-            var cookie = Request.Cookies.Get("SMB_AU");
-            if (cookie != null)
-                ViewBag.HasCookie = true;
-            else
-                ViewBag.HasCookie = false;
         }
     }
 }

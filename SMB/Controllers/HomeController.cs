@@ -8,14 +8,11 @@ namespace SMB.Controllers
     public class HomeController : Controller
     {
         private readonly SMBContext _db = new SMBContext();
+        private readonly ICookieManager _cookieManager = new CookieManager();
 
         public ActionResult Index()
         {
-            var cookie = Request.Cookies.Get("SMB_AU");
-            if (cookie != null)
-                ViewBag.HasCookie = true;
-            else
-                ViewBag.HasCookie = false;
+            ViewBag.HasCookie = _cookieManager.CheckForAutorisationCookie(Request);
             return View();
         }
 
@@ -25,8 +22,7 @@ namespace SMB.Controllers
             IProfile profile = profileManager.ReturnProfileFromDB(login, password);
             if(profile.Rank != ProfileRank.Null)
             {
-                var cookie = new HttpCookie("SMB_AU");
-                Response.Cookies.Add(cookie);
+                _cookieManager.CreateAndAddAutorisationCookie(Response);
             }
             return new RedirectResult("~/Home/Index");
         }

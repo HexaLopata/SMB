@@ -13,18 +13,18 @@
             Администратор может редактировать ссылки.
         </p>
     </div>
-<form method="post", action="~/Home/Autorisation">
+<form class="formWithValidation" method="post", action="~/Home/Autorisation">
     <table>
         <tr>
             <td>
                 <p>Логин</p>
-                <input class="simpleTextInput" type="text" name="login" />
+                <input class="simpleTextInput textWithEmptyValidation" type="text" name="login" />
             </td>
         </tr>
         <tr>
             <td>
                 <p>Пароль</p>
-                <input class="simpleTextInput" type="password" name="password" />
+                <input class="simpleTextInput textWithEmptyValidation" type="password" name="password" />
             </td>
         </tr>
         <tr>

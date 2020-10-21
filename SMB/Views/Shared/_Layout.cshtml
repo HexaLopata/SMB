@@ -14,8 +14,6 @@ navBarInnerItemLink - ссылка в пункте навигационной п
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title - SMB</title>
-        @Styles.Render("~/Content/mainStyle.css")
-        @Scripts.Render("~/Javascript/main.js")
     </head>
     <body>
         <div class="modalWindow" style="display:none">
@@ -44,5 +42,7 @@ navBarInnerItemLink - ссылка в пункте навигационной п
             <p>&copy; @DateTime.Now.Year - принадлежит Лехе</p>
         </footer>
         @RenderSection("scripts", required: false)
+        @Styles.Render("~/Content/mainStyle.css")
+        @Scripts.Render("~/Javascript/Main.js")
     </body>
 </html>
