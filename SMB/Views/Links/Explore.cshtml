@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<SMB.Models.Links.Topic>
+@using SMB.Models;
 
 @{
     ViewBag.Title = "Ссылки";
@@ -20,7 +21,7 @@
                     @if (ViewBag.HasCookie)
                     {
                         <td class="linkTableRightColumn">
-                            <a class="linkTableRightColumnButton" onclick="confirmDelete('topicId', @topic.Id, '/Links/DeleteTopic/')">Удалить</a>
+                            <a class="linkTableRightColumnButton" onclick="confirmDelete('topicId', @topic.Id, '@(VirtualPathCorrector.CorrectVirtualPath + "Links/DeleteTopic/")')">Удалить</a>
                         </td>
                     }
                     </tr>
@@ -37,7 +38,7 @@
                             @if (ViewBag.HasCookie)
                             {
                                 <td class="linkTableRightColumn">
-                                    <a class="linkTableRightColumnButton" onclick="confirmDelete('linkId', @link.Id, '/Links/DeleteLink/')">Удалить</a>
+                                    <a class="linkTableRightColumnButton" onclick="confirmDelete('linkId', @link.Id, '@(VirtualPathCorrector.CorrectVirtualPath + "Links/DeleteLink/")')">Удалить</a>
                                 </td>
                             }
                         </tr>

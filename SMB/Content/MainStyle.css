@@ -1,7 +1,4 @@
-﻿@font-face {
-    font-family: Oswald;
-    src: url('/fonts/Oswald-Medium.ttf');
-}
+﻿@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 
 *{
     font-family: verdana, arial, helvetica, sans-serif;
@@ -58,13 +55,13 @@ footer {
 
 .navBarInnerItemLink {
     font-size: x-large;
-    font-family: Oswald;
+    font-family: 'Oswald', sans-serif;
     text-decoration: none;
     color: white;
 }
 
 #navBarLogoItem {
-    font-family: Oswald;
+    font-family: 'Oswald', sans-serif;
     font-size: x-large;
     text-decoration: none;
     color: white;

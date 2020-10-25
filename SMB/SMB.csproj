@@ -172,6 +172,7 @@
     <Compile Include="Models\DataBases\SMBContext.cs" />
     <Compile Include="Models\Links\Subject.cs" />
     <Compile Include="Models\Links\Topic.cs" />
+    <Compile Include="Models\VirtualPathCorrector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\DataBases\ILinkDataBaseManager.cs" />
     <Compile Include="Models\Links\LinkDataBaseManager.cs" />
